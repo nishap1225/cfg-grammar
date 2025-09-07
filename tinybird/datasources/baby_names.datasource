@@ -1,0 +1,10 @@
+DESCRIPTION >
+    Generated from /Users/nisha/Desktop/cfg-grammar/Popular_Baby_Names.csv
+
+SCHEMA >
+    `year_of_birth` Int32,
+    `gender` String,
+    `ethnicity` String,
+    `child_s_first_name` String,
+    `count` Int32,
+    `rank` Int16
