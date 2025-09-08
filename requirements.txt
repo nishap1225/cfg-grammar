@@ -1,0 +1,5 @@
+# OpenAI API client for AI model interactions
+openai
+streamlit
+pandas
+requests

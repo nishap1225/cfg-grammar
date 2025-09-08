@@ -1,3 +1,6 @@
 .tinyb
 .terraform
 .env.local
+.streamlit
+.cfg
+__pycache__
