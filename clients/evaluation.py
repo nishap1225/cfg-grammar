@@ -74,9 +74,7 @@ class CFGSQLEvaluator:
                 return False
         return True
 
-    def evaluate_single_case(
-        self, test_case: TestCase
-    ) -> EvalResult:  # , use_cfg: bool) -> EvalResult:
+    def evaluate_single_case(self, test_case: TestCase) -> EvalResult:
         """Evaluate a single test case"""
         # Generate SQL
         generated_sql = self.generate_sql(test_case.natural_language)
@@ -116,7 +114,7 @@ class CFGSQLEvaluator:
         cfg_results = []
 
         for test_case in test_cases:
-            cfg_result = self.evaluate_single_case(test_case)  # , use_cfg=True)
+            cfg_result = self.evaluate_single_case(test_case)
             cfg_results.append(cfg_result)
 
         # Calculate metrics

@@ -1,4 +1,4 @@
-# NYC Baby Names Dashboard
+# NYC Baby Names
 
 ## Tinybird
 

@@ -3,7 +3,7 @@ from clients import generate_query, query_db, evaluation
 import pandas as pd
 
 
-# Initialize clients only once using session state
+# Initialize clients only once
 @st.cache_resource
 def initialize_clients():
     """Initialize clients once and cache them"""
@@ -15,10 +15,7 @@ def initialize_clients():
 
 query_generator, query_db_client, evaluator = initialize_clients()
 
-# Page title
 st.title("Context-Free Grammar Playground")
-
-# Create tabs for different sections
 tab1, tab2 = st.tabs(["Query Interface", "Model Evaluation"])
 
 # Tab 1: Original query interface
@@ -41,6 +38,7 @@ with tab1:
             )
     except Exception as e:
         st.warning(f"Could not load sample data: {str(e)}")
+
     # Create a form to handle Enter key press
     with st.form("query_form"):
         question = st.text_input(
@@ -84,7 +82,7 @@ with tab2:
     # Get test cases
     test_cases = evaluator.test_cases()
 
-    # Create a dataframe to display test cases nicely
+    # Display test cases
     test_case_data = []
     for i, case in enumerate(test_cases):
         test_case_data.append(
