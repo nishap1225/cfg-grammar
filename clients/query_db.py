@@ -1,6 +1,5 @@
 import requests
 import pandas as pd
-from urllib.parse import urlencode
 from io import StringIO
 
 

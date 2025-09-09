@@ -1,9 +1,7 @@
-import json
 from dataclasses import dataclass
 from typing import Set, Dict, Any, Optional, List
 from clients import generate_query, query_db
 from pandas import DataFrame
-from tabulate import tabulate
 
 
 @dataclass
@@ -66,7 +64,7 @@ class CFGSQLEvaluator:
         for col in expected_data.columns:
             expected_vals = set(
                 expected_data[col].dropna().unique()
-            )  # Get unique set of non-null values in epxected_data
+            )  # Get unique set of non-null values in expected_data
             actual_vals = set(actual_data[col].dropna().unique())
 
             # Fail if expected values aren't a subset of actual
