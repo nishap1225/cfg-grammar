@@ -34,7 +34,7 @@ with tab1:
         sample_query = "SELECT * FROM baby_names LIMIT 10 FORMAT CSVWithNames"
         sample_data = query_db_client.query_db(sample_query)
         if sample_data is not None and not sample_data.empty:
-            st.dataframe(sample_data, use_container_width=True)
+            st.dataframe(sample_data, width="content")
         else:
             st.info(
                 "No sample data available. Please ensure the database is properly set up."
@@ -44,8 +44,8 @@ with tab1:
     # Create a form to handle Enter key press
     with st.form("query_form"):
         question = st.text_input(
-            "Ask me about baby names! You can ask about:",
-            placeholder="Examples: 'What are the most popular names for girls in 2020?', 'Show me Hispanic baby names ranked in top 10', 'Which names were most popular for boys in 2015?'",
+            "Ask me about baby names!",
+            placeholder="'What are the most popular names for girls in 2020?'",
         )
         submitted = st.form_submit_button("Submit")
 
@@ -126,6 +126,7 @@ with tab2:
                 st.session_state.run_evaluation = False
                 st.rerun()
             except Exception as e:
+                st.exception(e)
                 st.error(f"Evaluation failed: {str(e)}")
                 st.session_state.run_evaluation = False
 

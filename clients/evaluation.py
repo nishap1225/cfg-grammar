@@ -65,6 +65,8 @@ class CFGSQLEvaluator:
             expected_vals = set(
                 expected_data[col].dropna().unique()
             )  # Get unique set of non-null values in expected_data
+            if col not in actual_data.columns:
+                return False
             actual_vals = set(actual_data[col].dropna().unique())
 
             # Fail if expected values aren't a subset of actual
