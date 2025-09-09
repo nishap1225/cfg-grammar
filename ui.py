@@ -16,18 +16,37 @@ def initialize_clients():
 query_generator, query_db_client, evaluator = initialize_clients()
 
 # Page title
-st.title("Baby Names Query Interface")
+st.title("Context-Free Grammar Playground")
 
 # Create tabs for different sections
 tab1, tab2 = st.tabs(["Query Interface", "Model Evaluation"])
 
 # Tab 1: Original query interface
 with tab1:
-    st.header("Ask Questions About Baby Names")
+    st.header("Popular Baby Names")
 
+    # Display sample data
+    st.subheader("Sample Data")
+    st.write("Here's a preview of the baby names dataset:")
+
+    # Get sample data from the database
+    try:
+        sample_query = "SELECT * FROM baby_names LIMIT 10 FORMAT CSVWithNames"
+        sample_data = query_db_client.query_db(sample_query)
+        if sample_data is not None and not sample_data.empty:
+            st.dataframe(sample_data, use_container_width=True)
+        else:
+            st.info(
+                "No sample data available. Please ensure the database is properly set up."
+            )
+    except Exception as e:
+        st.warning(f"Could not load sample data: {str(e)}")
     # Create a form to handle Enter key press
     with st.form("query_form"):
-        question = st.text_input("Ask about baby names in New York City")
+        question = st.text_input(
+            "Ask me about baby names! You can ask about:",
+            placeholder="Examples: 'What are the most popular names for girls in 2020?', 'Show me Hispanic baby names ranked in top 10', 'Which names were most popular for boys in 2015?'",
+        )
         submitted = st.form_submit_button("Submit")
 
     # Only process when form is submitted with input
