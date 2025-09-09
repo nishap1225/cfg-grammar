@@ -144,7 +144,7 @@ class CFGSQLEvaluator:
             ),
             TestCase(
                 natural_language="What's the top hispanic name for boys and girls in 2021?",
-                expected_sql="SELECT gender, child_s_first_name, count FROM baby_names WHERE year_of_birth = 2021 AND ethnicity = 'HISPANIC' AND rank = 1 FORMAT CSVWithNames",
+                expected_sql="SELECT gender, child_s_first_name FROM baby_names WHERE year_of_birth = 2021 AND ethnicity = 'HISPANIC' AND rank = 1 FORMAT CSVWithNames",
                 expected_columns={"child_s_first_name", "gender"},
             ),
             TestCase(
