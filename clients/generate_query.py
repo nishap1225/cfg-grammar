@@ -1,7 +1,8 @@
 from openai import OpenAI
 import textwrap
 
-grammar = textwrap.dedent(r"""
+grammar = textwrap.dedent(
+    r"""
 // ---------- Start ----------
 start: select_stmt 
 
@@ -95,13 +96,15 @@ YEAR: /201[1-9]|202[01]/
 // ---------- Whitespace handling ----------
 %import common.WS
 %ignore WS
-""")
+"""
+)
 
-class QueryGenerator: 
-    def __init__(self, openai_token): 
+
+class QueryGenerator:
+    def __init__(self, openai_token):
         self.client = OpenAI(api_key=openai_token)
 
-    def generate_query(self, prompt: str): 
+    def generate_query(self, prompt: str):
         response = self.client.responses.create(
             model="gpt-5",
             input=prompt,
@@ -114,11 +117,11 @@ class QueryGenerator:
                     "format": {
                         "type": "grammar",
                         "syntax": "lark",
-                        "definition": grammar
-                    }
+                        "definition": grammar,
+                    },
                 },
             ],
-            parallel_tool_calls=False
+            parallel_tool_calls=False,
         )
 
         return response.output[1].input
