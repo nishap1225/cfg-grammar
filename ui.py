@@ -1,5 +1,5 @@
 import streamlit as st
-from clients import generate_query, query_db, evaluation
+from clients import generate_query, query_db, evaluation, jwt_generate
 import pandas as pd
 
 
@@ -16,7 +16,7 @@ def initialize_clients():
 query_generator, query_db_client, evaluator = initialize_clients()
 
 st.title("Context-Free Grammar Playground")
-tab1, tab2 = st.tabs(["Query Interface", "Model Evaluation"])
+tab1, tab2, tab3 = st.tabs(["Query Interface", "Model Evaluation", "JWT Generator"])
 
 # Tab 1: Original query interface
 with tab1:
@@ -194,3 +194,30 @@ with tab2:
                 ):
                     st.write("**Expected Results:**")
                     st.dataframe(result.test_case.expected_data)
+
+# Tab 3: JWT Generator
+with tab3:
+    st.header("JWT Token Generator")
+
+    st.write(
+        "Generate a JWT token for accessing the Tinybird API with specific permissions."
+    )
+
+    # Generate JWT button
+    if st.button("Generate JWT Token", type="primary"):
+        try:
+            # Get the signing secret from Streamlit secrets
+            signing_secret = st.secrets.get("signing_secret")
+            if not signing_secret:
+                st.error(
+                    "JWT signing secret not found in Streamlit secrets. Please add 'signing_secret' to your secrets."
+                )
+            else:
+                # Generate the JWT
+                jwt_token = jwt_generate.generate_jwt(signing_secret)
+
+                # Display the token
+                st.subheader("Generated JWT Token")
+                st.code(jwt_token, language="text")
+        except Exception as e:
+            st.error(f"Failed to generate JWT token: {str(e)}")

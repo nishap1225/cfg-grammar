@@ -1,6 +1,6 @@
 .tinyb
 .terraform
 .env.local
-.streamlit
+.streamlit/secrets.toml
 .cfg
 __pycache__
